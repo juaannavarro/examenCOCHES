@@ -181,14 +181,14 @@ grafica_barras()
 
 
 def grafica_sectores():
-    call = 0
-    form = 0
+    call=0
+    form=0
+    navegacion = pd.read_csv("navegacion.csv", sep = ";")
     conversiones = pd.read_csv("conversiones.csv", sep = ";")
-    navegaciones = pd.read_csv("navegacion.csv", sep = ";")
-    Data = conversiones['id_user'].groupby(pd.cut(conversiones['id_user'], str[call, form])).count()
-    rango = ["CALL", "FORM"]
-    fig, ax = plt.subplots()
-    g = ax.pie(Data, labels=rango, autopct='%1.1f%%', shadow=True, startangle=90)
-    plt.show
+    data = conversiones['lead_type'].groupby(pd.cut(conversiones['lead_type'], [call, form])).count()
+    rango = ["Call", "Form"]
+    fig, ax= plt.subplots()
+    g = ax.pie(data, labels=rango, autopct='%1.1f%%', shadow=True, startangle=90)
+    plt.show()
     return
 grafica_sectores()  
