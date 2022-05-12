@@ -4,6 +4,12 @@ import pandas as pd
 from numpy import shares_memory
 from numpy.lib.function_base import append
 from pandas import tseries
+import matplotlib.pyplot as plt
+import seaborn as sns 
+import decorator as dec
+
+
+
 
 
 conversiones = pd.read_csv("conversiones.csv", sep = ";")
@@ -32,6 +38,9 @@ def conversion():
             if user_nav == user_conv:
                 convertidos += 1
     print("El porcentaje de visitas a convertidos es de ", convertidos/navegaciones.shape[0]*100, "%")
+    print("El porcentaje de visitas que no son convertidos es de ", 100-convertidos/navegaciones.shape[0]*100, "%")
+
+
     return
 conversion()
 
@@ -47,6 +56,9 @@ def tipo_conversion():
             call += 1
         else:
             form += 1
+    sns.countplot(conversiones['lead_type'])
+    plt.xticks(rotation= 90 )
+    plt.show()
     print("El numero de conversiones de tipo call es:", call)
     print("El numero de conversiones de tipo form es:", form)
     return
@@ -154,3 +166,29 @@ def guardar_fichero():
 guardar_fichero()
 
 
+
+
+
+
+def grafica_barras():
+    navegacion = pd.read_csv("navegacion.csv", sep = ";")
+    conversiones = pd.read_csv("conversiones.csv", sep = ";")
+    sns.countplot(conversiones['lead_type'])
+    plt.xticks(rotation= 90 )
+    plt.show()
+    return
+grafica_barras()
+
+
+def grafica_sectores():
+    call = 0
+    form = 0
+    conversiones = pd.read_csv("conversiones.csv", sep = ";")
+    navegaciones = pd.read_csv("navegacion.csv", sep = ";")
+    Data = conversiones['id_user'].groupby(pd.cut(conversiones['id_user'], str[call, form])).count()
+    rango = ["CALL", "FORM"]
+    fig, ax = plt.subplots()
+    g = ax.pie(Data, labels=rango, autopct='%1.1f%%', shadow=True, startangle=90)
+    plt.show
+    return
+grafica_sectores()  
