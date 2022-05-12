@@ -90,3 +90,7 @@ b)     Si nos quedamos con todos los datos repetidos buscar el más cercano a la
 1)     Con estos datos ya unidos y tratados debemos realizar diferentes informes que se proponen en el apartado siguiente (Entrega individual)
 
 
+
+Para ello hemos utilizado el siguiente código:
+```
+
