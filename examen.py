@@ -23,6 +23,9 @@ def limpieza():
             index.append(i)
     conversiones = pd.DataFrame(conversiones.drop(conversiones.index[index]), columns = conversiones.columns)
     conversiones = conversiones.reset_index()
+    sns.countplot(conversiones["id_user"])
+    plt.xticks(rotation= 90 )
+    plt.show()
     print("El numero de visitas que recibe es:", navegacion.shape[0], "visitas")
     return
 limpieza()
@@ -37,6 +40,10 @@ def conversion():
         for user_conv in users_conversion:
             if user_nav == user_conv:
                 convertidos += 1
+    numero = [convertidos/navegaciones.shape[0]*100, 100-convertidos/navegaciones.shape[0]*100]
+    labels = ["Convertidos", "No convertidos"]
+    plt.pie(numero, labels = labels, autopct = "%1.1f%%")
+    plt.show()
     print("El porcentaje de visitas a convertidos es de ", convertidos/navegaciones.shape[0]*100, "%")
     print("El porcentaje de visitas que no son convertidos es de ", 100-convertidos/navegaciones.shape[0]*100, "%")
 
@@ -56,6 +63,9 @@ def tipo_conversion():
             call += 1
         else:
             form += 1
+    sns.countplot(conversiones['lead_type'])
+    plt.xticks(rotation= 90 )
+    plt.show()
     print("El numero de conversiones de tipo call es:", call)
     print("El numero de conversiones de tipo form es:", form)
     return
@@ -167,13 +177,5 @@ def guardar_fichero():
 guardar_fichero()
 
 
-def grafica_barras():
-    navegacion = pd.read_csv("navegacion.csv", sep = ";")
-    conversiones = pd.read_csv("conversiones.csv", sep = ";")
-    sns.countplot(conversiones['lead_type'])
-    plt.xticks(rotation= 90 )
-    plt.show()
-    return
-grafica_barras()
 
 
