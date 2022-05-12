@@ -56,9 +56,6 @@ def tipo_conversion():
             call += 1
         else:
             form += 1
-    sns.countplot(conversiones['lead_type'])
-    plt.xticks(rotation= 90 )
-    plt.show()
     print("El numero de conversiones de tipo call es:", call)
     print("El numero de conversiones de tipo form es:", form)
     return
@@ -73,6 +70,10 @@ def recurrentes():
         number_of_users.add(navegacion._get_value(i, "id_user"))
         if navegaciones._get_value(i, "user_recurrent") == True:
             recurrente.add(navegaciones._get_value(i, "id_user"))
+    porcentaje= [len(recurrente)/len(number_of_users)*100, 100-len(recurrente)/len(number_of_users)*100]
+    labels = ["Recurrentes", "No recurrentes"]
+    plt.pie(porcentaje, labels = labels, autopct = "%1.1f%%")
+    plt.show()
     print("El porcentaje de usuarios que son recurrentes es:", len(recurrente)/len(number_of_users)*100, "%")
     return
 recurrentes()
@@ -166,10 +167,6 @@ def guardar_fichero():
 guardar_fichero()
 
 
-
-
-
-
 def grafica_barras():
     navegacion = pd.read_csv("navegacion.csv", sep = ";")
     conversiones = pd.read_csv("conversiones.csv", sep = ";")
@@ -180,15 +177,3 @@ def grafica_barras():
 grafica_barras()
 
 
-def grafica_sectores():
-    call=0
-    form=0
-    navegacion = pd.read_csv("navegacion.csv", sep = ";")
-    conversiones = pd.read_csv("conversiones.csv", sep = ";")
-    data = conversiones['lead_type'].groupby(pd.cut(conversiones['lead_type'], [call, form])).count()
-    rango = ["Call", "Form"]
-    fig, ax= plt.subplots()
-    g = ax.pie(data, labels=rango, autopct='%1.1f%%', shadow=True, startangle=90)
-    plt.show()
-    return
-grafica_sectores()  
